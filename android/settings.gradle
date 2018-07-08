@@ -1,0 +1,3 @@
+rootProject.name = 'buscaCep'
+
+include ':app'
