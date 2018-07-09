@@ -5,3 +5,5 @@ Aplicativo para busca simples da Rua por CEP ou de CEP por nome da Rua.
 # Status
 
 Em desenvolvimento.
+
+![](http://i.imgur.com/OUkLi.gif)
