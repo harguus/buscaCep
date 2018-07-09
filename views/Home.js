@@ -5,6 +5,7 @@ import {
   StyleSheet,
   TextInput,
   TouchableOpacity,
+  Keyboard,
   Text,
   Image,
   View,
@@ -28,6 +29,7 @@ export default class Home extends Component<Props> {
   }
 
   buscarPorCep(){
+    Keyboard.dismiss();
     axios.get('https://viacep.com.br/ws/'+ this.state.cep +'/json/')
         .then((response) => {
             this.setState({resultado: response.data});
