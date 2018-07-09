@@ -1,8 +1,19 @@
 
 import React, {Component} from 'react';
-import {Platform, StyleSheet, TextInput, Text, Image, View, Button} from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  TextInput,
+  TouchableOpacity,
+  Text,
+  Image,
+  View,
+  Button,
+  Alert
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Pino from '../src/img/pino.png';
+import axios from 'axios';
+import Logo from '../src/img/logo.png';
 
 export default class Home extends Component<Props> {
   constructor(props){
@@ -10,8 +21,25 @@ export default class Home extends Component<Props> {
 
     this.state = {
       cep: "",
-      nomeRua: ""
+      nomeRua: "",
+      resultado: [],
+      loaded: false,
     }
+  }
+
+  buscarPorCep(){
+    axios.get('https://viacep.com.br/ws/'+ this.state.cep +'/json/')
+        .then((response) => {
+            this.setState({resultado: response.data});
+            this.setState({loaded: true});
+        })
+        .catch((error) => {
+            console.log(error);
+            Alert.alert(
+                'Problema com a conexão: '+ error.response.status
+            );
+            this.setState({loaded: true});
+        });
   }
 
   render() {
@@ -19,34 +47,50 @@ export default class Home extends Component<Props> {
       <View style={styles.geral}>
         <View style={styles.topo}>
           <Image
-            style={{width: 100, height: 100}}
-            source={Pino}
+            style={{width: 100, height: 100, marginTop: 20}}
+            source={Logo}
           />
-          <Text>
-            Street Name
+          <Text style={styles.nomeLogo}>
+            Busca CEP
           </Text>
         </View>
         <View style={styles.meio}>
           <View style={styles.meioInputs}>
             <TextInput
-              style={{height: 40, width: 150, borderColor: 'gray', borderWidth: 1}}
+              style={styles.inputText}
               keyboardType='numeric'
               onChangeText={(text) => {this.setState({cep : text})}}
             />
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => this.buscarPorCep()}
+              >
+              <Text style={styles.botaoNome}>Por CEP</Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.meioBotões}>
-            <View style={styles.botoes}>
-              <Button
-                onPress={() => {Actions.porcep({cep : this.state.cep})}}
-                title="Por CEP"
-                accessibilityLabel="Fazer busca por CEP"
-              />
-              <Button
-                onPress={() => {this.onPressLearnMore()}}
-                title="Por Rua"
-                accessibilityLabel="Fazer busca por nome da Rua"
-              />
-            </View>
+          <View style={styles.meioInputs}>
+            <TextInput
+              style={styles.inputText}
+              onChangeText={(text) => {this.setState({nomeRua : text})}}
+            />
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => Actions.porcep({cep : this.state.nomeRua})}
+              >
+              <Text style={styles.botaoNome}>Por Rua</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.resultado}>
+            {
+              this.state.loaded ?
+              <View style={styles.viewResultado}>
+              <Text>Rua: {this.state.resultado.logradouro}</Text>
+              <Text>Bairro: {this.state.resultado.bairro}</Text>
+              <Text>Cidade: {this.state.resultado.localidade}</Text>
+              <Text>Estado: {this.state.resultado.uf}</Text>
+              </View>
+              : <View></View>
+            }
           </View>
         </View>
         <View style={styles.rodape}>
@@ -58,19 +102,31 @@ export default class Home extends Component<Props> {
 
 const styles = StyleSheet.create({
   geral:{
-    flex: 1
+    flex: 1,
+    backgroundColor: "#A5D4D9"
   },
   topo:{
-    flex: 2,
+    flex: 1,
     flexDirection: 'column',
     justifyContent: 'center',
     alignItems: 'center',
   },
+  nomeLogo: {
+    marginTop: 15,
+    color: "#fff",
+    fontSize: 25,
+  },
+  inputText:{
+    backgroundColor: "#fff",
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+    height: 40,
+    marginTop: 15,
+    paddingLeft: 10,
+    width: 150,
+  },
   meio:{
-    flex: 4,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flex: 2,
     marginLeft: 25,
     marginRight: 25
   },
@@ -81,21 +137,28 @@ const styles = StyleSheet.create({
     marginLeft: 25,
     marginRight: 25
   },
-  meioBotões: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 25,
-    marginRight: 25
-  },
-  botoes: {
+  resultado:{
     flex: 4,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    marginTop: 15,
+  },
+  viewResultado:{
+    margin: 10,
+    borderRadius: 6,
+    backgroundColor: "#fff",
+    padding: 10,
+  },
+  botao: {
+    backgroundColor: "#6A9EE8",
+    borderTopRightRadius: 6,
+    borderBottomRightRadius: 6,
+    padding: 10,
+    marginTop: 15
+  },
+  botaoNome: {
+    color: "#fff"
   },
   rodape:{
-    flex: 1,
+    flex: .25,
     backgroundColor: 'pink'
   }
 });
