@@ -62,6 +62,7 @@ export default class PorCep extends Component<Props> {
             <TextInput
               style={styles.inputText}
               keyboardType='numeric'
+              maxLength={8}
               onChangeText={(text) => { this.setState({ cep: text }) }}
             />
             <TouchableOpacity
