@@ -14,7 +14,16 @@ export default class PorRua extends Component {
         return (
             <View>
                 <Text>
-                    Sobre
+                    Icone usado:
+                    https://www.iconfinder.com/icons/353834/google_local_local_seo_maps_icon
+                    icone set:
+                    https://www.iconfinder.com/iconsets/seo-internet-marketing-flat-icons
+                    autr:
+                    Clayton Johnson:
+                    https://www.iconfinder.com/thehoth
+                    Licence:
+                    Creative Commons (Attribution 3.0 Unported)
+                    https://creativecommons.org/licenses/by/3.0/
                 </Text>
             </View>
         );

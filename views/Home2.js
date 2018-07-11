@@ -57,6 +57,18 @@ export default class Home extends Component<Props> {
           </Text>
         </View>
         <View style={styles.meio}>
+          <View style={styles.botoes}>
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => Actions.porcep()}>
+              <Text style={styles.botaoNome}>Pesquisar por CEP</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.botao}
+              onPress={() => Actions.porrua()}>
+              <Text style={styles.botaoNome}>Pesquisar por RUA</Text>
+            </TouchableOpacity>
+          </View>
           
         </View>
         <View style={styles.rodape}>
@@ -85,46 +97,26 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 25,
   },
-  inputText: {
-    backgroundColor: "#fff",
-    borderTopLeftRadius: 6,
-    borderBottomLeftRadius: 6,
-    height: 40,
-    marginTop: 15,
-    paddingLeft: 10,
-    width: 150,
-  },
   meio: {
     flex: 2,
     marginLeft: 25,
-    marginRight: 25
-  },
-  meioInputs: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 25,
-    marginRight: 25
-  },
-  resultado: {
-    flex: 4,
-    marginTop: 15,
-  },
-  viewResultado: {
-    margin: 10,
-    borderRadius: 6,
-    backgroundColor: "#fff",
-    padding: 10,
+    marginRight: 25,
+    paddingTop: 25
   },
   botao: {
     backgroundColor: "#6A9EE8",
     borderTopRightRadius: 6,
     borderBottomRightRadius: 6,
-    padding: 10,
-    marginTop: 15
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+    alignItems: 'center',
+    padding: 15,
+    marginTop: 20
   },
   botaoNome: {
-    color: "#fff"
+    color: "#fff",
+    fontSize: 20,
+    fontWeight: 'bold',
   },
   rodape: {
     flex: .25,
