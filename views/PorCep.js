@@ -1,17 +1,14 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
   Text,
-  Image,
   View,
-  Button,
-  Alert,
-  ToastAndroid
+  Image,
+  Keyboard,
+  TextInput,
+  StyleSheet,
+  ToastAndroid,
+  TouchableOpacity,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
@@ -23,7 +20,6 @@ export default class PorCep extends Component<Props> {
 
     this.state = {
       cep: "",
-      nomeRua: "",
       resultado: [],
       loaded: false,
     }
@@ -39,8 +35,8 @@ export default class PorCep extends Component<Props> {
         })
         .catch((error) => {
           console.log(error);
-          Alert.alert(
-            'Problema com a conexão: ' + error.response.status
+          ToastAndroid.showWithGravity(
+            'Problema com a conexão: ' + error.response.status, ToastAndroid.SHORT, ToastAndroid.CENTER
           );
           this.setState({ loaded: true });
         });

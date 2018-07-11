@@ -1,48 +1,16 @@
 
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
   Text,
-  Image,
   View,
-  Button,
-  Alert
+  Image,
+  StyleSheet,
+  TouchableOpacity,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import axios from 'axios';
 import Logo from '../src/img/logo3.png';
 
 export default class Home extends Component<Props> {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      cep: "",
-      nomeRua: "",
-      resultado: [],
-      loaded: false,
-    }
-  }
-
-  buscarPorCep() {
-    Keyboard.dismiss();
-    axios.get('https://viacep.com.br/ws/' + this.state.cep + '/json/')
-      .then((response) => {
-        this.setState({ resultado: response.data });
-        this.setState({ loaded: true });
-      })
-      .catch((error) => {
-        console.log(error);
-        Alert.alert(
-          'Problema com a conexão: ' + error.response.status
-        );
-        this.setState({ loaded: true });
-      });
-  }
 
   render() {
     return (
