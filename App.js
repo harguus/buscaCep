@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Platform, StyleSheet, Text, View} from 'react-native';
 import {Router, Scene, Modal} from 'react-native-router-flux';
-import Home from './views/Home2';
+import Home from './views/Home';
 import PorCep from './views/PorCep';
 import PorRua from './views/PorRua';
 import Sobre from './views/Sobre';
