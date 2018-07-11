@@ -30,18 +30,22 @@ export default class PorCep extends Component<Props> {
 
   buscarPorCep() {
     Keyboard.dismiss();
-    axios.get('https://viacep.com.br/ws/' + this.state.cep + '/json/')
-      .then((response) => {
-        this.setState({ resultado: response.data });
-        this.setState({ loaded: true });
-      })
-      .catch((error) => {
-        console.log(error);
-        Alert.alert(
-          'Problema com a conexão: ' + error.response.status
-        );
-        this.setState({ loaded: true });
-      });
+    if (this.state.cep != "") {
+      axios.get('https://viacep.com.br/ws/' + this.state.cep + '/json/')
+        .then((response) => {
+          this.setState({ resultado: response.data });
+          this.setState({ loaded: true });
+        })
+        .catch((error) => {
+          console.log(error);
+          Alert.alert(
+            'Problema com a conexão: ' + error.response.status
+          );
+          this.setState({ loaded: true });
+        });
+    } else{
+      Alert.alert("Digite o cep");
+    }
   }
 
   render() {
@@ -49,14 +53,14 @@ export default class PorCep extends Component<Props> {
       <View style={styles.geral}>
         <View style={styles.topo}>
           <Image
-            style={{ width: 100, height: 100, marginTop: 20 }}
+            style={{ width: 100, height: 100, marginTop: 15 }}
             source={Logo}
           />
-          <Text style={styles.nomeLogo}>
-            Busca CEP
-          </Text>
         </View>
         <View style={styles.meio}>
+          <View style={{alignItems: 'center'}}>
+            <Text style={styles.textDica}>Digite o CEP</Text>
+          </View>
           <View style={styles.meioInputs}>
             <TextInput
               style={styles.inputText}
@@ -67,19 +71,7 @@ export default class PorCep extends Component<Props> {
               style={styles.botao}
               onPress={() => this.buscarPorCep()}
             >
-              <Text style={styles.botaoNome}>Por CEP</Text>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.meioInputs}>
-            <TextInput
-              style={styles.inputText}
-              onChangeText={(text) => { this.setState({ nomeRua: text }) }}
-            />
-            <TouchableOpacity
-              style={styles.botao}
-              onPress={() => Actions.porcep({ cep: this.state.nomeRua })}
-            >
-              <Text style={styles.botaoNome}>Por Rua</Text>
+              <Text style={styles.botaoNome}>Pesquisar</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.resultado}>
@@ -116,11 +108,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  nomeLogo: {
-    marginTop: 15,
-    color: "#fff",
-    fontSize: 25,
-  },
   inputText: {
     backgroundColor: "#fff",
     borderTopLeftRadius: 6,
@@ -128,12 +115,17 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: 15,
     paddingLeft: 10,
-    width: 150,
+    width: 180,
   },
   meio: {
     flex: 2,
     marginLeft: 25,
-    marginRight: 25
+    marginRight: 25,
+  },
+  textDica:{
+    fontSize: 18,
+    color: "#fff",
+    fontWeight: 'bold',
   },
   meioInputs: {
     flexDirection: 'row',

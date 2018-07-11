@@ -12,7 +12,7 @@ export default class App extends Component<Props> {
         <Router>
           <Modal>
               <Scene hideNavBar={true} key='home' component={Home}/>
-              <Scene key="porcep" component={PorCep} title="Busca por Cep"/>
+              <Scene key="porcep" component={PorCep} title="Busca por CEP"/>
               <Scene key="porrua" component={PorRua} title="Busca Por Rua"/>
               <Scene key="sobre" component={Sobre} title="Sobre a aplicação"/>
           </Modal>
