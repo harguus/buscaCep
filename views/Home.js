@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
-import Logo from '../src/img/logo.png';
+import Logo from '../src/img/logo3.png';
 
 export default class Home extends Component<Props> {
   constructor(props){
@@ -96,6 +96,9 @@ export default class Home extends Component<Props> {
           </View>
         </View>
         <View style={styles.rodape}>
+            <TouchableOpacity onPress={() => Actions.sobre()}>
+              <Text style={styles.sobre}>Sobre</Text>
+            </TouchableOpacity>
         </View>
       </View>
     );
@@ -161,6 +164,11 @@ const styles = StyleSheet.create({
   },
   rodape:{
     flex: .25,
-    backgroundColor: 'pink'
+    backgroundColor: '#1E2D42',
+    alignItems: 'center',
+  },
+  sobre:{
+    marginTop: 15,
+    color: "#fff"
   }
 });
