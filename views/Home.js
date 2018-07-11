@@ -63,11 +63,11 @@ export default class Home extends Component<Props> {
               onPress={() => Actions.porcep()}>
               <Text style={styles.botaoNome}>Pesquisar por CEP</Text>
             </TouchableOpacity>
-            <TouchableOpacity
+            {/*<TouchableOpacity
               style={styles.botao}
               onPress={() => Actions.porrua()}>
               <Text style={styles.botaoNome}>Pesquisar por RUA</Text>
-            </TouchableOpacity>
+            </TouchableOpacity>*/}
           </View>
           
         </View>

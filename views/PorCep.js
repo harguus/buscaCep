@@ -10,7 +10,8 @@ import {
   Image,
   View,
   Button,
-  Alert
+  Alert,
+  ToastAndroid
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
@@ -32,7 +33,7 @@ export default class PorCep extends Component<Props> {
     Keyboard.dismiss();
     if (this.state.cep != "") {
       axios.get('https://viacep.com.br/ws/' + this.state.cep + '/json/')
-        .then((response) => {
+      .then((response) => {
           this.setState({ resultado: response.data });
           this.setState({ loaded: true });
         })
@@ -43,9 +44,9 @@ export default class PorCep extends Component<Props> {
           );
           this.setState({ loaded: true });
         });
-    } else{
-      Alert.alert("Digite o cep");
-    }
+      } else{
+        ToastAndroid.showWithGravity("Digite o CEP", ToastAndroid.SHORT, ToastAndroid.CENTER);
+      }
   }
 
   render() {

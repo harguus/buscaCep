@@ -23,7 +23,7 @@ export default class PorRua extends Component {
                 <Text style={styles.desc}>https://viacep.com.br</Text>
 
 
-                <Text style={styles.h1}>Imagens e ícones usado:</Text>
+                <Text style={styles.h1}>Imagens e ícones usados:</Text>
                 <Text style={styles.desc}>Autor: Clayton Johnson</Text>
                 <Text style={styles.desc}>https://www.iconfinder.com/thehoth</Text>
                 <Text style={styles.desc}>Licence: Creative Commons (Attribution 3.0 Unported)</Text>
