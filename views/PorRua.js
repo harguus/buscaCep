@@ -9,11 +9,12 @@ import {
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
+import Preloading from '../components/Preloading';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import Logo from '../src/img/logo3.png';
 
-export default class PorRua extends Component<Props> {
+export default class PorRua extends Component {
   constructor(props) {
     super(props);
 
@@ -21,6 +22,7 @@ export default class PorRua extends Component<Props> {
       nomeRua: "",
       resultado: [],
       loaded: false,
+      preloaded: false,
     }
   }
 
@@ -80,6 +82,8 @@ export default class PorRua extends Component<Props> {
           </View>
           <View style={styles.resultado}>
             {
+              this.state.preloaded ?
+                <Preloading /> :
               this.state.loaded ?
                 <View style={styles.viewResultado}>
                   <Text>Rua: {this.state.resultado.logradouro}</Text>

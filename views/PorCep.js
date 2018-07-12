@@ -10,28 +10,32 @@ import {
   ToastAndroid,
   TouchableOpacity,
 } from 'react-native';
+import Preloading from '../components/Preloading';
+import CrossButtom from '../components/CrossButtom';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import Logo from '../src/img/logo3.png';
 
-export default class PorCep extends Component<Props> {
+export default class PorCep extends Component{
   constructor(props) {
     super(props);
-
+    
     this.state = {
       cep: "",
       resultado: [],
       loaded: false,
+      preloaded: false,
     }
   }
 
   buscarPorCep() {
     Keyboard.dismiss();
     if (this.state.cep != "") {
+      this.setState({preloaded: true});
       axios.get('https://viacep.com.br/ws/' + this.state.cep + '/json/')
       .then((response) => {
           this.setState({ resultado: response.data });
-          this.setState({ loaded: true });
+          this.setState({ loaded: true, preloaded: false });
         })
         .catch((error) => {
           console.log(error);
@@ -73,13 +77,20 @@ export default class PorCep extends Component<Props> {
             </TouchableOpacity>
           </View>
           <View style={styles.resultado}>
-            {
+            { 
+              this.state.preloaded ?
+              <Preloading/> :
               this.state.loaded ?
                 <View style={styles.viewResultado}>
-                  <Text>Rua: {this.state.resultado.logradouro}</Text>
-                  <Text>Bairro: {this.state.resultado.bairro}</Text>
-                  <Text>Cidade: {this.state.resultado.localidade}</Text>
-                  <Text>Estado: {this.state.resultado.uf}</Text>
+                  <View style={{flex: 2}}>
+                    <Text>Rua: {this.state.resultado.logradouro}</Text>
+                    <Text>Bairro: {this.state.resultado.bairro}</Text>
+                    <Text>Cidade: {this.state.resultado.localidade}</Text>
+                    <Text>Estado: {this.state.resultado.uf}</Text>
+                  </View>
+                  <View style={{ flex: 1, paddingTop: 10, justifyContent: 'center', alignContent: 'center', }}>
+                    <CrossButtom/>
+                  </View>
                 </View>
                 : <View></View>
             }
@@ -141,6 +152,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
     backgroundColor: "#fff",
     padding: 10,
+    flexDirection: 'row',
   },
   botao: {
     backgroundColor: "#6A9EE8",

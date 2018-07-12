@@ -10,7 +10,7 @@ export default props => (
     <View style={styles.top}>
     </View>
     <View style={styles.center}>
-      <ActivityIndicator size="large" color="#0000ff" />
+      <ActivityIndicator size="large" color="#fff" />
     </View>
     <View style={styles.botton}>
     </View>

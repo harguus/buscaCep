@@ -6,7 +6,7 @@ import PorCep from './views/PorCep';
 import PorRua from './views/PorRua';
 import Sobre from './views/Sobre';
 
-export default class App extends Component<Props> {
+export default class App extends Component {
   render() {
     return (
       <Router navigationBarStyle={{ backgroundColor: '#1E2D42' }} titleStyle={{ color: "#fff" }}>

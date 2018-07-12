@@ -10,7 +10,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import Logo from '../src/img/logo3.png';
 
-export default class Home extends Component<Props> {
+export default class Home extends Component {
 
   render() {
     return (
